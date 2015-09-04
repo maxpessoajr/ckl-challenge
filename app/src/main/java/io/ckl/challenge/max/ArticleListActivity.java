@@ -3,6 +3,13 @@ package io.ckl.challenge.max;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
+import java.util.List;
+
+import io.ckl.challenge.max.dao.ArticleDAO;
+import io.ckl.challenge.max.entity.Article;
+import io.ckl.challenge.max.entity.Article$Table;
 
 
 /**
@@ -34,6 +41,10 @@ public class ArticleListActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
+
+        List<Article> list = ArticleDAO.getInstance().selectAll(Article$Table.TITLE);
+        for (Article a : list)
+            Log.d("ARTICLE", a.getTitle());
 
         if (findViewById(R.id.article_detail_container) != null) {
             // The detail container view will be present only in the

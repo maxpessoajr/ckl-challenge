@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 
 import java.util.List;
@@ -13,10 +12,15 @@ import java.util.List;
 import io.ckl.challenge.max.ArticleListActivity;
 import io.ckl.challenge.max.R;
 import io.ckl.challenge.max.callback.DownloadDataCallback;
+import io.ckl.challenge.max.dao.ArticleDAO;
+import io.ckl.challenge.max.dao.ChallengeDB;
 import io.ckl.challenge.max.entity.Article;
 import io.ckl.challenge.max.task.GetArticles;
 
 /**
+ *
+ * Splash screen. Verifies if the data exist. Downloads the data if necessary.
+ *
  * Created by Max Jr on 03/09/2015.
  */
 public class SplashActivity extends Activity implements DownloadDataCallback<Article> {
@@ -30,14 +34,19 @@ public class SplashActivity extends Activity implements DownloadDataCallback<Art
 
         setContentView(R.layout.activity_splash);
 
-        //Download the Articles
-        new GetArticles(this).execute(getString(R.string.url_article_data));
+        //If the database is empty then Download the Articles
+        if (!ChallengeDB.hasData())
+            new GetArticles(this).execute(getString(R.string.url_article_data));
+        else {
+            Intent main = new Intent(this, ArticleListActivity.class);
+            startActivity(main);
+            finish();
+        }
     }
 
     @Override
     public void saveData(List<Article> list) {
-        for (Article a : list)
-            Log.d("ARTICLE",a.getTitle());
+        ArticleDAO.getInstance().saveModelList(list);
 
         Intent main = new Intent(this, ArticleListActivity.class);
         startActivity(main);

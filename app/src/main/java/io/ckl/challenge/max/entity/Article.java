@@ -2,34 +2,49 @@ package io.ckl.challenge.max.entity;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
 
+import io.ckl.challenge.max.dao.ChallengeDB;
 import io.ckl.challenge.max.util.JsonDateConverter;
 
 /**
  *
  * Entity class for Article.
  * Using annotations to define json's fields.
+ * Using annotations to define dbflow fields.
  *
  * Created by Max Jr on 03/09/2015.
  */
 @JsonObject
-public class Article {
-
+@Table(databaseName = ChallengeDB.NAME)
+public class Article extends BaseModel {
+    @Column
+    @PrimaryKey(autoincrement = true)
     private long id;
     @JsonField
+    @Column
     private String website;
     @JsonField
+    @Column
     private String title;
     @JsonField(name = "image")
+    @Column
     private String imageUrl;
     @JsonField
+    @Column
     private String content;
     @JsonField
+    @Column
     private String authors;
     @JsonField(typeConverter = JsonDateConverter.class)
+    @Column
     private Date date;
+    @Column
     private boolean read;
 
     public Article() {
@@ -81,7 +96,7 @@ public class Article {
     public Date getDate() {
         return date;
     }
-    public boolean isRead() {
+    public boolean getRead() {
         return read;
     }
 
