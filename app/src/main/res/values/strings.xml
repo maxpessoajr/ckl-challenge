@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Challenge</string>
     <string name="title_article_detail">Article Detail</string>
+
+    <string name="url_article_data">http://www.ckl.io/challenge/</string>
+
+    <string name="dialog_title_download_error">Download Error</string>
+
+    <string name="dialog_message_download_error">Unable to download the data. Verify internet connection.</string>
+
+    <string name="button_try_again">Try Again</string>
+    <string name="button_cancel">Cancel</string>
 </resources>

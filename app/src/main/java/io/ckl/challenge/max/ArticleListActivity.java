@@ -1,8 +1,8 @@
 package io.ckl.challenge.max;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 
 
 /**
@@ -50,6 +50,7 @@ public class ArticleListActivity extends Activity
         }
 
         // TODO: If exposing deep links into your app, handle intents here.
+
     }
 
     /**
