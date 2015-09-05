@@ -3,14 +3,8 @@ package io.ckl.challenge.max;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
-import java.util.List;
-
-import io.ckl.challenge.max.dao.ArticleDAO;
-import io.ckl.challenge.max.entity.Article;
-import io.ckl.challenge.max.entity.Article$Table;
-
+import io.ckl.challenge.max.callback.DetailCallback;
 
 /**
  * An activity representing a list of Articles. This activity
@@ -25,11 +19,10 @@ import io.ckl.challenge.max.entity.Article$Table;
  * (if present) is a {@link ArticleDetailFragment}.
  * <p/>
  * This activity also implements the required
- * {@link ArticleListFragment.Callbacks} interface
+ * {@link DetailCallback} interface
  * to listen for item selections.
  */
-public class ArticleListActivity extends Activity
-        implements ArticleListFragment.Callbacks {
+public class ArticleListActivity extends Activity implements DetailCallback {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -41,10 +34,6 @@ public class ArticleListActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
-
-        List<Article> list = ArticleDAO.getInstance().selectAll(Article$Table.TITLE);
-        for (Article a : list)
-            Log.d("ARTICLE", a.getTitle());
 
         if (findViewById(R.id.article_detail_container) != null) {
             // The detail container view will be present only in the
@@ -65,17 +54,17 @@ public class ArticleListActivity extends Activity
     }
 
     /**
-     * Callback method from {@link ArticleListFragment.Callbacks}
+     * Callback method from {@link DetailCallback}
      * indicating that the item with the given ID was selected.
      */
     @Override
-    public void onItemSelected(String id) {
+    public void onItemSelected(long id) {
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ArticleDetailFragment.ARG_ITEM_ID, id);
+            arguments.putLong(ArticleDetailFragment.ARG_ITEM_ID, id);
             ArticleDetailFragment fragment = new ArticleDetailFragment();
             fragment.setArguments(arguments);
             getFragmentManager().beginTransaction()

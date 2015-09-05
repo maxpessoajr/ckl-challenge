@@ -1,13 +1,17 @@
 package io.ckl.challenge.max;
 
 import android.app.ListFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import io.ckl.challenge.max.dummy.DummyContent;
+import java.util.List;
+
+import io.ckl.challenge.max.callback.DetailCallback;
+import io.ckl.challenge.max.dao.ArticleDAO;
+import io.ckl.challenge.max.entity.Article;
+import io.ckl.challenge.max.entity.Article$Table;
 
 /**
  * A list fragment representing a list of Articles. This fragment
@@ -15,7 +19,7 @@ import io.ckl.challenge.max.dummy.DummyContent;
  * 'activated' state upon selection. This helps indicate which item is
  * currently being viewed in a {@link ArticleDetailFragment}.
  * <p/>
- * Activities containing this fragment MUST implement the {@link Callbacks}
+ * Activities containing this fragment MUST implement the {@link DetailCallback}
  * interface.
  */
 public class ArticleListFragment extends ListFragment {
@@ -30,34 +34,12 @@ public class ArticleListFragment extends ListFragment {
      * The fragment's current callback object, which is notified of list item
      * clicks.
      */
-    private Callbacks mCallbacks = sDummyCallbacks;
+    private DetailCallback detailCallback;
 
     /**
      * The current activated item position. Only used on tablets.
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
-
-    /**
-     * A callback interface that all activities containing this fragment must
-     * implement. This mechanism allows activities to be notified of item
-     * selections.
-     */
-    public interface Callbacks {
-        /**
-         * Callback for when an item has been selected.
-         */
-        void onItemSelected(String id);
-    }
-
-    /**
-     * A dummy implementation of the {@link Callbacks} interface that does
-     * nothing. Used only when this fragment is not attached to an activity.
-     */
-    private static Callbacks sDummyCallbacks = new Callbacks() {
-        @Override
-        public void onItemSelected(String id) {
-        }
-    };
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -70,12 +52,16 @@ public class ArticleListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.detailCallback = (DetailCallback)getActivity();
+
+        List<Article> list = ArticleDAO.getInstance().selectAll(Article$Table.TITLE);
+
         // TODO: replace with a real list adapter.
         setListAdapter(new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                DummyContent.ITEMS));
+                list));
     }
 
     @Override
@@ -89,25 +75,17 @@ public class ArticleListFragment extends ListFragment {
         }
     }
 
-    @Override
+    /*@Override
     public void onAttach(Context activity) {
         super.onAttach(activity);
 
         // Activities containing this fragment must implement its callbacks.
-        if (!(activity instanceof Callbacks)) {
+        if (!(activity instanceof DetailCallback)) {
             throw new IllegalStateException("Activity must implement fragment's callbacks.");
         }
 
-        mCallbacks = (Callbacks) activity;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-        // Reset the active callbacks interface to the dummy implementation.
-        mCallbacks = sDummyCallbacks;
-    }
+        this.detailCallback = (DetailCallback) activity;
+    } */
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
@@ -115,7 +93,8 @@ public class ArticleListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        Article article = (Article)getListAdapter().getItem(position);
+        detailCallback.onItemSelected(article.getId());
     }
 
     @Override

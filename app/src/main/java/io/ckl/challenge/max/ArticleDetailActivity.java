@@ -40,8 +40,8 @@ public class ArticleDetailActivity extends Activity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ArticleDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(ArticleDetailFragment.ARG_ITEM_ID));
+            arguments.putLong(ArticleDetailFragment.ARG_ITEM_ID,
+                    getIntent().getLongExtra(ArticleDetailFragment.ARG_ITEM_ID,-1));
             ArticleDetailFragment fragment = new ArticleDetailFragment();
             fragment.setArguments(arguments);
             getFragmentManager().beginTransaction()
