@@ -2,6 +2,8 @@ package io.ckl.challenge.max.dao;
 
 import com.raizlabs.android.dbflow.sql.builder.Condition;
 import com.raizlabs.android.dbflow.sql.language.Select;
+import com.raizlabs.android.dbflow.sql.language.Update;
+import com.raizlabs.android.dbflow.sql.language.Where;
 
 import java.util.List;
 
@@ -30,6 +32,12 @@ public class ArticleDAO extends BaseDAO<Article> {
 
     public List<Article> selectAll(String orderBy) {
         return new Select(Article$Table.ID,Article$Table.TITLE,Article$Table.DATE,Article$Table.AUTHORS,Article$Table.IMAGEURL).from(Article.class).where().orderBy(true, orderBy).queryList();
+    }
+
+    public void updateReadState(Article article) {
+        Where update = new Update(Article.class).set(Condition.column(Article$Table.READ).eq(article.getRead()))
+                .where(Condition.column(Article$Table.ID).is(article.getId()));
+        update.queryClose();
     }
 
 }

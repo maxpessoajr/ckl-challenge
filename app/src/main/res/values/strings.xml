@@ -5,9 +5,17 @@
     <string name="url_article_data">http://www.ckl.io/challenge/</string>
 
     <string name="dialog_title_download_error">Download Error</string>
-
     <string name="dialog_message_download_error">Unable to download the data. Verify internet connection.</string>
 
     <string name="button_try_again">Try Again</string>
     <string name="button_cancel">Cancel</string>
+
+    <string name="snackbar_message_mark_read">Marked as readed</string>
+    <string name="snackbar_message_unmark_read">Unmarked</string>
+
+    <string name="label_detail_title">Title</string>
+    <string name="label_detail_author">Authors</string>
+    <string name="label_detail_website">Website</string>
+    <string name="label_detail_date">Date</string>
+    <string name="label_detail_content">Content</string>
 </resources>

@@ -1,9 +1,3 @@
-<!-- <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/article_detail"
-    style="?android:attr/textAppearanceLarge" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="16dp" android:textIsSelectable="true"
-    tools:context=".ArticleDetailFragment" /> -->
-
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -26,8 +20,7 @@
             app:expandedTitleMarginEnd="64dp">
 
             <ImageView
-                android:id="@+id/image"
-                android:src="@drawable/ckl_logo"
+                android:id="@+id/articleImageDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
@@ -35,13 +28,12 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
     <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scroll"
+        android:id="@+id/scrollDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:layout_gravity="fill_vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -53,42 +45,95 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="30dp"
                 android:orientation="vertical">
-
                 <TextView
-                    android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="30dp"
-                    android:text="string/lorem_ipsumsajfnsafdnas,dfnasndf,asgasbdgbnsadfm,bsad,m/fnbsmdfbmsanbdfmansbgmnsab gnmsa fmnbsdgmnb"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/label_detail_title"
+                    android:textSize="16sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                <TextView
+                    android:id="@+id/articleTitleDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="30dp"
-                    android:text="string/lorem_ipsumsajfnsafdnas,dfnasndf,asgasbdgbnsadfm,bsad,m/fnbsmdfbmsanbdfmansbgmnsab gnmsa fmnbsdgmnb"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/label_detail_author"
+                    android:textSize="16sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                <TextView
+                    android:id="@+id/articleAuthorDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="30dp"
-                    android:text="string/lorem_ipsumsajfnsafdnas,dfnasndf,asgasbdgbnsadfm,bsad,m/fnbsmdfbmsanbdfmansbgmnsab gnmsa fmnbsdgmnb"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/label_detail_website"
+                    android:textSize="16sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                <TextView
+                    android:id="@+id/articleWebsiteDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/label_detail_date"
+                    android:textSize="16sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                <TextView
+                    android:id="@+id/articleDateDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/label_detail_content"
+                    android:textSize="16sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                <TextView
+                    android:id="@+id/articleContentDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_height="60dp"
-        android:layout_width="60dp"
+        android:id="@+id/fabRead"
+        android:layout_height="56dp"
+        android:layout_width="56dp"
         android:layout_marginEnd="15dp"
-        android:elevation="10dp"
-        app:layout_anchor="@id/app_bar_layout"
+        android:elevation="8dp"
+        app:pressedTranslationZ="12dp"
+        app:layout_anchor="@id/scrollDetail"
+        app:layout_anchorGravity="top|end"
         app:theme="@android:style/ThemeOverlay.Material.Light"
-        app:layout_anchorGravity="bottom|end" />
+        android:src="@drawable/fab_icons" />
 </android.support.design.widget.CoordinatorLayout>
