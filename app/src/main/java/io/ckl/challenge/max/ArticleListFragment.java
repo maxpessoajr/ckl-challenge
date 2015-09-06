@@ -2,8 +2,11 @@ package io.ckl.challenge.max;
 
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import java.util.List;
 
@@ -22,7 +25,8 @@ import io.ckl.challenge.max.entity.Article$Table;
  * Activities containing this fragment MUST implement the {@link DetailCallback}
  * interface.
  */
-public class ArticleListFragment extends ListFragment {
+public class ArticleListFragment extends ListFragment implements PopupMenu.OnMenuItemClickListener {
+    private int currentSort;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -54,15 +58,10 @@ public class ArticleListFragment extends ListFragment {
 
         this.detailCallback = (DetailCallback)getActivity();
 
+        this.currentSort = R.id.contextSortTitle;
         List<Article> list = ArticleDAO.getInstance().selectAll(Article$Table.TITLE);
 
         setListAdapter(new ArticleItemAdapter(getActivity(),list));
-        /*/ TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                list)); */
     }
 
     @Override
@@ -128,4 +127,32 @@ public class ArticleListFragment extends ListFragment {
 
         mActivatedPosition = position;
     }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (this.currentSort!=item.getItemId()) {
+            List<Article> list = null;
+            this.currentSort = item.getItemId();
+            switch (item.getItemId()) {
+                case R.id.contextSortTitle:
+                     list = ArticleDAO.getInstance().selectAll(Article$Table.TITLE);
+                    break;
+                case R.id.contextSortAuthor:
+                    list = ArticleDAO.getInstance().selectAll(Article$Table.AUTHORS);
+                    break;
+                case R.id.contextSortDate:
+                    list = ArticleDAO.getInstance().selectAll(Article$Table.DATE);
+                    break;
+                case R.id.contextSortWebsite:
+                    list = ArticleDAO.getInstance().selectAll(Article$Table.WEBSITE);
+                    break;
+                default:
+                    return super.onContextItemSelected(item);
+            }
+            setListAdapter(new ArticleItemAdapter(getActivity(), list));
+        }
+        Snackbar.make(getListView(), R.string.snackbar_message_done, Snackbar.LENGTH_SHORT).show();
+        return true;
+    }
+
 }

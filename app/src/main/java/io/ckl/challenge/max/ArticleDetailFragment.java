@@ -70,7 +70,7 @@ public class ArticleDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.articleDateDetail)).setText(date);
             ((TextView) rootView.findViewById(R.id.articleContentDetail)).setText(mItem.getContent());
 
-            final FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabRead);
+            FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fabRead);
             fab.setSelected(mItem.getRead());
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override

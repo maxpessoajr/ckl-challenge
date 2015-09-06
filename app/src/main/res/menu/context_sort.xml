@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/contextSortAuthor"
+        android:title="@string/conext_sort_author" />
+    <item android:id="@+id/contextSortDate"
+        android:title="@string/conext_sort_date" />
+    <item android:id="@+id/contextSortTitle"
+        android:title="@string/conext_sort_title" />
+    <item android:id="@+id/contextSortWebsite"
+        android:title="@string/conext_sort_website" />
+</menu>

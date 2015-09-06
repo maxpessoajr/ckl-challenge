@@ -3,8 +3,14 @@ package io.ckl.challenge.max;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
 
 import io.ckl.challenge.max.callback.DetailCallback;
+import io.ckl.challenge.max.control.AboutActivity;
 
 /**
  * An activity representing a list of Articles. This activity
@@ -30,10 +36,14 @@ public class ArticleListActivity extends Activity implements DetailCallback {
      */
     private boolean mTwoPane;
 
+    private ArticleListFragment listFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
+
+        this.listFragment = ((ArticleListFragment) getFragmentManager().findFragmentById(R.id.article_list));
 
         if (findViewById(R.id.article_detail_container) != null) {
             // The detail container view will be present only in the
@@ -44,13 +54,38 @@ public class ArticleListActivity extends Activity implements DetailCallback {
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((ArticleListFragment) getFragmentManager()
-                    .findFragmentById(R.id.article_list))
-                    .setActivateOnItemClick(true);
+            listFragment.setActivateOnItemClick(true);
         }
 
-        // TODO: If exposing deep links into your app, handle intents here.
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Inflate the menu items for use in the actionbar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the actionbar items
+        switch (item.getItemId()) {
+            case R.id.actionSort:
+                View menuItemView = findViewById(item.getItemId());
+                PopupMenu popupMenu = new PopupMenu(this, menuItemView);
+                popupMenu.setOnMenuItemClickListener(listFragment);
+                popupMenu.inflate(R.menu.context_sort);
+                popupMenu.show();
+                break;
+            case R.id.actionAbout:
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 
     /**
@@ -79,4 +114,5 @@ public class ArticleListActivity extends Activity implements DetailCallback {
             startActivity(detailIntent);
         }
     }
+
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/actionSort"
+        android:icon="@drawable/ic_sort_white_24dp"
+        android:orderInCategory="1"
+        android:title="@string/action_menu_sort"
+        android:visible="true"
+        android:showAsAction="always" />
+
+    <item android:id="@+id/actionAbout"
+        android:title="@string/action_menu_about"
+        android:orderInCategory="2"
+        android:showAsAction="never" />
+
+</menu>
