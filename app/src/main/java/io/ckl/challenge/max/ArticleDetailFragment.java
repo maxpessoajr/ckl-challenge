@@ -2,9 +2,11 @@ package io.ckl.challenge.max;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -84,6 +86,16 @@ public class ArticleDetailFragment extends Fragment {
             });
         }
 
+        //Prevent from exception when toolbar is half-way collapsed and a touch is made on image
+        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+
         return rootView;
     }
+
 }

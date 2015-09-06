@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <!-- <ImageView
+        android:id="@+id/articleImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ckl_logo" /> -->
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/articleImage"
+        android:src="@drawable/ckl_logo"
+        android:scaleType="fitCenter"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="10dp"
+        app:riv_corner_radius="15dip"
+        app:riv_border_color="#333333"
+        app:riv_mutate_background="true" />
+
+    <TextView
+        android:id="@+id/articleTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/articleImage"
+        android:text="Title"
+        android:textSize="18sp"
+        android:textColor="@color/cardview_dark_background" />
+
+    <TextView
+        android:id="@+id/articleAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/articleImage"
+        android:layout_below="@+id/articleTitle"
+        android:text="Author"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/articleDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/articleAuthor"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:text="MM/dd/yyyy"
+        android:textSize="12sp"
+        android:textColor="@color/colorPrimary" />
+
+</RelativeLayout>

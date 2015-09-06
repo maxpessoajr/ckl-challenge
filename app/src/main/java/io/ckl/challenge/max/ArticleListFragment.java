@@ -3,12 +3,12 @@ package io.ckl.challenge.max;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.List;
 
 import io.ckl.challenge.max.callback.DetailCallback;
+import io.ckl.challenge.max.control.ArticleItemAdapter;
 import io.ckl.challenge.max.dao.ArticleDAO;
 import io.ckl.challenge.max.entity.Article;
 import io.ckl.challenge.max.entity.Article$Table;
@@ -56,12 +56,13 @@ public class ArticleListFragment extends ListFragment {
 
         List<Article> list = ArticleDAO.getInstance().selectAll(Article$Table.TITLE);
 
-        // TODO: replace with a real list adapter.
+        setListAdapter(new ArticleItemAdapter(getActivity(),list));
+        /*/ TODO: replace with a real list adapter.
         setListAdapter(new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                list));
+                list)); */
     }
 
     @Override
